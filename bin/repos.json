@@ -3,11 +3,11 @@
     "login": "bison-cloud-platform",
     "repos": [
       {
-        "enableDependabot": true,
-        "enableDependabotUpdates": true,
-        "enableSecretScanning": true,
+        "enableDependabot": false,
+        "enableDependabotUpdates": false,
+        "enableSecretScanning": false,
         "enableCodeScanning": true,
-        "createIssue": true,
+        "createIssue": false,
         "repo": "bison-cloud-platform/codeql-java-tester"
       }
     ]
