@@ -16,11 +16,6 @@ export const getRepositoriesQuery = (): string => {
         nodes {
           nameWithOwner
           isArchived
-          viewerPermission
-          visibility
-          primaryLanguage {
-              name
-            }
         }
         totalCount
         pageInfo {
