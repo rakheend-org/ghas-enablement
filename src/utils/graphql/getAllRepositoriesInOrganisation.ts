@@ -1,6 +1,6 @@
 export const getRepositoriesQuery = (): string => {
   const query = ` 
-  query getRepositoriesQuery($slug: String!, $after: String, $first: Int = 100) {
+  query getRepositoriesQuery($slug: String!, $first: Int = 100) {
     viewer {
       login
     }
@@ -12,7 +12,7 @@ export const getRepositoriesQuery = (): string => {
       used
     }
     organization(login: $slug) {
-      repositories(first: $first, after: $after, affiliations: ORGANIZATION_MEMBER, isFork: false) {
+      repositories(first: $first, affiliations: ORGANIZATION_MEMBER) {
         nodes {
           nameWithOwner
           isArchived

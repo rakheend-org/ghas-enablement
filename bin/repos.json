@@ -1,14 +1,14 @@
 [
   {
-    "login": "octodemo",
+    "login": "bison-cloud-platform",
     "repos": [
       {
-        "enableDependabot": false,
-        "enableDependabotUpdates": false,
-        "enableSecretScanning": false,
+        "enableDependabot": true,
+        "enableDependabotUpdates": true,
+        "enableSecretScanning": true,
         "enableCodeScanning": true,
         "createIssue": true,
-        "repo": "org/repo"
+        "repo": "bison-cloud-platform/codeql-java-tester"
       }
     ]
   }

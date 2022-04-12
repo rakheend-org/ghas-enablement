@@ -45,12 +45,10 @@ export const commitFileMac = async (
   }
 
   const {
-    env: { LANGUAGE_TO_CHECK: language },
+    env: { },
   } = process;
 
-  const fileName = language
-    ? `codeql-analysis-${language}.yml`
-    : "codeql-analysis-standard.yml";
+  const fileName = "codeql-analysis-multilang.yml";
 
   try {
     gitCommands =
