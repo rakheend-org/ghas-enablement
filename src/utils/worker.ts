@@ -66,7 +66,7 @@ export const worker = async (): Promise<unknown> => {
         : null;
 
       // Kick off the process for enabling Code Scanning
-      if (enableCodeScanning) {
+      if (!enableCodeScanning) {
         const defaultBranch = await findDefulatBranch(owner, repo, client);
         const defaultBranchSHA = await findDefulatBranchSHA(
           defaultBranch,

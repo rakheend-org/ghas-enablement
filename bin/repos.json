@@ -1,14 +1,14 @@
 [
   {
-    "login": "bison-cloud-platform",
+    "login": "rakheend-org",
     "repos": [
       {
         "enableDependabot": false,
         "enableDependabotUpdates": false,
         "enableSecretScanning": false,
-        "enableCodeScanning": true,
+        "enableCodeScanning": false,
         "createIssue": false,
-        "repo": "bison-cloud-platform/codeql-java-tester"
+        "repo": "rakheend-org/test-java-rep"
       }
     ]
   }

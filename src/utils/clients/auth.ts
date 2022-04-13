@@ -1,16 +1,17 @@
-import { createAppAuth, StrategyOptions } from "@octokit/auth-app";
+import {createAppAuth} from "@octokit/auth-app";
 
-import { env } from "process";
+import {env} from "process";
+import {promises as fs} from "fs";
 
 export const auth = async (): Promise<string | Error> => {
   /* If there is a hardcoded PAT, use that and move on */
   if (env.GITHUB_API_TOKEN) {
     return env.GITHUB_API_TOKEN;
   }
-  /* Checking if they have supplied all the required informaiton to generate a GitHub App */
+  /* Checking if they have supplied all the required information to generate a GitHub App */
   if (
     !env.APP_ID ||
-    !env.APP_PRIVATE_KEY ||
+    !env.APP_PRIVATE_KEY_LOCATION ||
     !env.APP_INSTALLATION_ID ||
     !env.APP_CLIENT_ID ||
     !env.APP_CLIENT_SECRET
@@ -20,20 +21,21 @@ export const auth = async (): Promise<string | Error> => {
     );
   }
 
-  /* If there is no hardcoded PAT, but all the required parameters for a GitHub App is provided, generate a token from a GitHub App */
-  const options = {
-    appId: env.APP_ID as string,
-    privateKey: env.APP_PRIVATE_KEY as string,
-    installationId: parseInt(env.APP_INSTALLATION_ID as string, 10) as number,
-    clientId: env.APP_CLIENT_ID as string,
-    clientSecret: env.APP_CLIENT_SECRET as string,
-  } as StrategyOptions;
-
-  const auth = createAppAuth(options);
-
   try {
-    const { token } = await auth({ type: "installation" });
-    return token;
+    const auth = createAppAuth({
+      appId: env.APP_ID,
+      privateKey: (await fs.readFile(env.APP_PRIVATE_KEY_LOCATION as string, "utf-8")) as string,
+      clientId: env.APP_CLIENT_ID,
+      clientSecret: env.APP_CLIENT_SECRET
+    });
+
+    const installationAuthentication = await auth({
+      type: "installation",
+      installationId: env.APP_INSTALLATION_ID,
+    });
+
+    return installationAuthentication.token;
+
   } catch (err: any) {
     console.error("Error within function (githubAuth)", err.message);
     throw new Error(
